@@ -1,12 +1,10 @@
-#include <cmath>
-namespace sfuns{
+#ifndef SFUNS_H
+#define SFUNS_H
 
-double fgamma(double x){
-///single precision gamma function (formula from Wikipedia)
-if(x<0)return M_PI/sin(M_PI*x)/fgamma(1-x); // Euler's reflection formula
-if(x<9)return fgamma(x+1)/x; // Recurrence relation
-double lnfgamma=x*log(x+1/(12*x-1/x/10))-x+log(2*M_PI/x)/2;
-return exp(lnfgamma);
+#include <cmath>
+
+namespace sfuns {
+    double fgamma(double x);  // Declaration only
 }
 
-}//class sfuns
+#endif // SFUNS_H
