@@ -12,6 +12,8 @@ int main() {
     std::cout << "pi^e = " << pi_e << std::endl;
     for (int i =1; i<=10; i++){
         std::cout << "gamma(" << i << ") = " << sfuns::fgamma(i) << std::endl;
+        std::cout << "lngamma(" << i << ") = " << std::log(sfuns::fgamma(i)) << std::endl;
+
     }
     return 0;
 }

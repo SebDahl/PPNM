@@ -1,0 +1,11 @@
+#include <iostream>
+int main(){
+    double x = 5;
+    double y = x;
+    double& z = x;
+    int n = 3;
+    std::vector<double> a(n);
+    for (int = 0; i<a.size(); i++)a[i] = i+1;
+    std::vector<double>& b = a;
+
+}
