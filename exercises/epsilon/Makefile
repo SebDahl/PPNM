@@ -1,14 +1,36 @@
-CXXFLAGS += -Wall -Wextra -Werror -std=c++23
-LDLIBS += -lstdc++ -lm
+# Compiler and flags
+CXX = g++
+CXXFLAGS = -std=c++23 -ffast-math
+LDFLAGS =
+LDLIBS = -lm
 
-.PHONY: all clean
+# Automatically find all .cpp files
+SRCS := $(wildcard *.cpp)
+OBJS := $(SRCS:.cpp=.o)
 
-all: epsilon Out.txt
+# Target executable
+TARGET = epsilon  # Change this if you want a different name
 
-# Compile both math.cc and sfuns.cc
-math: epsilon.cc sfuns.c
-	$(CXX) $(CXXFLAGS) -o epsilon epsilon.cc $(LDLIBS)
-	./epsilon > Out.txt
+# Default target
+all: $(TARGET) Out.txt  # Added Out.txt as a dependency to 'all'
 
+# Linking step (uses g++)
+$(TARGET): $(OBJS)
+	$(CXX) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+
+# Compilation step for each .cpp file
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
+
+# Create Out.txt by running the executable
+Out.txt: $(TARGET)  # Out.txt depends on the executable
+	./$(TARGET) > Out.txt  # Run the executable and redirect output to Out.txt
+
+# Cleanup
+.PHONY: clean
 clean:
-	$(RM) sfuns.dll *.exe Out.txt *.o main epsilon
+	$(RM) $(OBJS) $(TARGET) Out.txt
+
+# Test which compiler is used
+test:
+	@echo $(CXX)

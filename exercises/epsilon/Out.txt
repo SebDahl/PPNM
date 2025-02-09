@@ -1,0 +1,6 @@
+Maximum value for int
+2147483647
+pass
+Minimum value for int
+-2147483648
+pass
