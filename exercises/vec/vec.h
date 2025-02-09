@@ -16,7 +16,7 @@ struct vec{
     vec& operator*=(double);
     vec& operator/=(double);
     double dot(const vec& v) const;
-    vec& cross(const vec& v) const;
+    vec cross(const vec& v) const;
     void set(double a,double b,double c){x=a;y=b;z=c;}
     void print(std::string s="") const; // for debugging
     friend std::ostream& operator<<(std::ostream&, const vec&);
