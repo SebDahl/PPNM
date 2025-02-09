@@ -94,8 +94,7 @@ vec operator/(const vec& v, double s) {
     return vec(v.x, v.y, v.z) /= s;
 }
 
-// Non-member approx function: checks if two vectors are approximately equal.
-// For simplicity, we use only the absolute tolerance "acc". (eps is ignored.)
+// Approximate equality check.
 bool approx(const vec& v1, const vec& v2, double acc, double /*eps*/) {
     return (std::abs(v1.x - v2.x) <= acc) &&
            (std::abs(v1.y - v2.y) <= acc) &&
