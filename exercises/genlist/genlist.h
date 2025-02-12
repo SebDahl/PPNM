@@ -54,7 +54,7 @@ void add(T item) {
 	delete[] data;
 	data=newdata;
 	}
-|
+
 void remove(int j){
     T *newdata = new T[Size-1]();
     for(int i=0;i<Size;i++){
