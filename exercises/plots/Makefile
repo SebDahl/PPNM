@@ -1,36 +1,35 @@
-# Compiler and flags
 CXX = g++
-CXXFLAGS = -std=c++23 -ffast-math
-LDFLAGS =
-LDLIBS = -lm
+CXXFLAGS += -std=c++23 -Wall -O2
+LDLIBS += -lm
 
-# Automatically find all .cpp files
-SRCS := $(wildcard *.cpp)
-OBJS := $(SRCS:.cpp=.o)
+# Executable and data files
+TARGET = plot.test.svg
+DATAFILE = data.txt
+EXE = main.exe
+OBJS = main.o sfuns.o
 
-# Target executable
-TARGET = genlist  # Change this if you want a different name
+# Default rule
+all: $(TARGET)
 
-# Default target
-all: $(TARGET) Out.txt  # Added Out.txt as a dependency to 'all'
+# Rule to generate the plot using Gnuplot
+plot.test.svg: test.gpi $(DATAFILE)
+	gnuplot $<
 
-# Linking step (uses g++)
-$(TARGET): $(OBJS)
-	$(CXX) $(LDFLAGS) $^ -o $@ $(LDLIBS)
+# Rule to generate the data file from the C++ program
+$(DATAFILE): $(EXE)
+	./$(EXE) > $@
 
-# Compilation step for each .cpp file
-%.o: %.cpp
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
+# Rule to compile the C++ program
+$(EXE): $(OBJS)
+	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDLIBS)
 
-# Create Out.txt by running the executable
-# Out.txt: $(TARGET)  # Out.txt depends on the executable
-# 	./$(TARGET) > Out.txt  # Run the executable and redirect output to Out.txt
+# Compilation rules for object files
+main.o: main.cpp sfuns.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Cleanup
-.PHONY: clean
+sfuns.o: sfuns.cpp sfuns.h
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+# Clean rule
 clean:
-	$(RM) $(OBJS) $(TARGET) Out.txt
-
-# Test which compiler is used
-test:
-	@echo $(CXX)
+	$(RM) *.exe *.svg $(DATAFILE) *.o

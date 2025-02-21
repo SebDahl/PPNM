@@ -12,7 +12,8 @@ return exp(lnfgamma);
 double erf(double x){
     /// single precision error function (Abramowitz and Stegun, from Wikipedia)
     double a1=0.278393, a2=0.230389, a3=0.000972, a4=0.078108;
-    double res = 1-1/pow((1+a1*x+a2*x*x+a3*x*x*x+a4*x*x*x*x),4);
+    double y = fabs(x);
+    double res = 1-1/pow((1+a1*y+a2*y*y+a3*y*y*y+a4*y*y*y*y),4);
     if (x<0) return -res;
     else return res;
 }
