@@ -1,0 +1,10 @@
+set terminal svg enhanced size 800,600
+set output "lngamma_plot.svg"
+set title "lnGamma Function"
+set xlabel "x"
+set ylabel "lnGamma(x)"
+set grid
+set xrange [-4:4]   # Equivalent to plt.xlim
+set yrange [-5:5]   # Equivalent to plt.ylim
+
+plot "lngamma_data.txt" using 1:2 with lines linewidth 2 lc rgb "blue" title "Gamma(x)"

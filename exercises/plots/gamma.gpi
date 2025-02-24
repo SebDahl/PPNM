@@ -1,0 +1,10 @@
+set terminal svg enhanced size 800,600
+set output "gamma_plot.svg"
+set title "Gamma Function"
+set xlabel "x"
+set ylabel "Gamma(x)"
+set grid
+set xrange [-4:4]   # Equivalent to plt.xlim
+set yrange [-5:5]   # Equivalent to plt.ylim
+
+plot "gamma_data.txt" using 1:2 with lines linewidth 2 lc rgb "blue" title "Gamma(x)"

@@ -1,0 +1,9 @@
+set terminal svg enhanced size 800,600
+set output "erf_plot.svg"
+set title "Error Function"
+set xlabel "x"
+set ylabel "erf(x)"
+set grid
+
+plot "erf_data.txt" using 1:2 with lines linewidth 2 lc rgb "purple" title "erf(x)" , \
+     "erf_tab" using 1:2 with points pointtype 2 pointsize 2 lc rgb "red" title "Tabulated values"

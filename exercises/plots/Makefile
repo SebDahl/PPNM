@@ -2,34 +2,33 @@ CXX = g++
 CXXFLAGS += -std=c++23 -Wall -O2
 LDLIBS += -lm
 
-# Executable and data files
-TARGET = plot.test.svg
-DATAFILE = data.txt
+TARGETS = erf_plot.svg gamma_plot.svg lngamma_plot.svg
 EXE = main.exe
-OBJS = main.o sfuns.o
 
-# Default rule
-all: $(TARGET)
+all: $(TARGETS)
 
-# Rule to generate the plot using Gnuplot
-plot.test.svg: test.gpi $(DATAFILE)
+# Generate both data files in one run
+erf_data.txt gamma_data.txt lngamma_data.txt: $(EXE)
+	./$(EXE)
+
+# Plot the error function
+erf_plot.svg: erf.gpi erf_data.txt
 	gnuplot $<
 
-# Rule to generate the data file from the C++ program
-$(DATAFILE): $(EXE)
-	./$(EXE) > $@
+# Plot the gamma function
+gamma_plot.svg: gamma.gpi gamma_data.txt
+	gnuplot $<
+#Plot lngamma function
+lngamma_plot.svg: lngamma.gpi lngamma_data.txt
+	gnuplot $<
 
-# Rule to compile the C++ program
-$(EXE): $(OBJS)
-	$(CXX) $(CXXFLAGS) $^ -o $@ $(LDLIBS)
+# Compile main.cpp
+$(EXE): main.cpp sfuns.o
+	$(CXX) $(CXXFLAGS) main.cpp sfuns.o -o $(EXE) $(LDLIBS)
 
-# Compilation rules for object files
-main.o: main.cpp sfuns.h
-	$(CXX) $(CXXFLAGS) -c $< -o $@
-
+# Compile sfuns.cpp
 sfuns.o: sfuns.cpp sfuns.h
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c sfuns.cpp -o sfuns.o
 
-# Clean rule
 clean:
-	$(RM) *.exe *.svg $(DATAFILE) *.o
+	$(RM) *.exe *.svg *.txt *.o
