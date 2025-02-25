@@ -3,7 +3,7 @@
 #include<algorithm>
 #define SELF (*this)
 #define FOR_V(i,v) for(int i=0;i<v.size();i++)
-#define FOR_COLS(i,A) for(int i=0;i<A.size2();i++)
+#define FOR_COLS(i,A) for(int i=0;i<A.sizecol();i++)
 namespace pp{
 
 vector& vector::operator+=(const vector& other) {
@@ -59,9 +59,9 @@ void matrix::resize(int n, int m){
 	}
 
 matrix matrix::transpose(){
-    matrix R; R.resize(size2(),size1());
-    for(int j=0;j<R.size2();++j)
-    for(int i=0;i<R.size1();++i)
+    matrix R; R.resize(sizecol(),sizerow());
+    for(int j=0;j<R.sizecol();++j)
+    for(int i=0;i<R.sizerow();++i)
         R[i,j]=SELF[j,i];
     return R;
     }
@@ -83,32 +83,32 @@ matrix& matrix::operator/=(NUMBER x) {
 	return SELF; }
 
 matrix operator/(const matrix& A,NUMBER x){
-	matrix R; R.resize(A.size1(),A.size2());
+	matrix R; R.resize(A.sizerow(),A.sizecol());
 	FOR_COLS(i,R) R[i]=A[i]/x;
 	return R; }
 
 matrix operator*(const matrix& A,NUMBER x){
-	matrix R; R.resize(A.size1(),A.size2());
+	matrix R; R.resize(A.sizerow(),A.sizecol());
 	FOR_COLS(i,R) R[i]=A[i]*x;
 	return R; }
 
 matrix operator*(NUMBER x,const matrix& A){
-	matrix R; R.resize(A.size1(),A.size2());
+	matrix R; R.resize(A.sizerow(),A.sizecol());
 	FOR_COLS(i,R) R[i]=A[i]*x;
 	return R; }
 
 matrix operator+(const matrix& A, const matrix& B){
-	matrix R; R.resize(A.size1(),A.size2());
+	matrix R; R.resize(A.sizerow(),A.sizecol());
 	FOR_COLS(i,R) R[i]=A[i]+B[i];
 	return R; }
 
 matrix operator-(const matrix& A, const matrix& B){
-	matrix R; R.resize(A.size1(),A.size2());
+	matrix R; R.resize(A.sizerow(),A.sizecol());
 	FOR_COLS(i,R) R[i]=A[i]-B[i];
 	return R; }
 
 vector operator*(const matrix& M, const vector& v){
-	vector r; r.resize(M.size1());
+	vector r; r.resize(M.sizerow());
 	for(int i=0;i<r.size();i++){
 		NUMBER sum=0;
 		for(int j=0;j<v.size();j++)sum+=M[i,j]*v[j];
@@ -118,11 +118,11 @@ vector operator*(const matrix& M, const vector& v){
 	}
 
 matrix operator*(const matrix& A, const matrix& B){
-	matrix R; R.resize(A.size1(),B.size2());
-	for(int k=0;k<A.size2();k++)
-	for(int j=0;j<B.size2();j++)
+	matrix R; R.resize(A.sizerow(),B.sizecol());
+	for(int k=0;k<A.sizecol();k++)
+	for(int j=0;j<B.sizecol();j++)
 		{
-		for(int i=0;i<A.size1();i++)R[i,j]+=A[i,k]*B[k,j];
+		for(int i=0;i<A.sizerow();i++)R[i,j]+=A[i,k]*B[k,j];
 		}
 	return R;
 	}
@@ -139,8 +139,8 @@ void matrix::set_col(int j,vector& cj){
 
 void matrix::print(std::string s,FILE* stream){
 	fprintf(stream,"%s\n",s.c_str());
-	for(int i=0;i<size1();i++){
-		for(int j=0;j<size2();j++)fprintf(stream,"%9.4g ",(double)SELF[i,j]);
+	for(int i=0;i<sizerow();i++){
+		for(int j=0;j<sizecol();j++)fprintf(stream,"%9.4g ",(double)SELF[i,j]);
 		fprintf(stream,"\n");
 		}
 	}

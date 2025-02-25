@@ -41,8 +41,8 @@ struct matrix {
 	matrix(matrix&& other)=default;
 	matrix& operator=(const matrix& other)=default;
 	matrix& operator=(matrix&& other)=default;
-	int size1() const {return cols.empty() ? 0 : cols[0].size(); }
-	int size2() const {return cols.size();}
+	int sizerow() const {return cols.empty() ? 0 : cols[0].size(); }
+	int sizecol() const {return cols.size();}
 	void resize(int n, int m);
 	
 	NUMBER get (int i, int j) {return cols[j][i];}
