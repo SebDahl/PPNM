@@ -52,8 +52,8 @@ struct matrix {
 	const NUMBER& operator[](int i, int j) const {return cols[j][i];}
 	vector& operator[](int i){return cols[i];}
 	const vector& operator[](int i) const {return cols[i];}
-//	vector get_col(int j);
-//	void set_col(int j,vector& cj);
+	vector get_col(int j);
+	void set_col(int j,vector& cj);
 	matrix transpose();
 
 	matrix& operator+=(const matrix&);

@@ -8,15 +8,15 @@
 
 class QR {
 private:
-    std::matrix<double> Q;
-    std::matrix<double> R;
+    pp::matrix<double> Q;
+    pp::matrix<double> R;
 
 
 public:
-    QR(const std::matrix<double>& A); // Constructor (decomp)
-    std::matrix<double> getQ() const; // Getter for Q
-    std::matrix<double> getR() const; // Getter for R
-    std::matrix<double> solve(const std::matrix<double>& b) const; 
+    QR(const pp::matrix<double>& A); // Constructor (decomp)
+    pp::matrix<double> getQ() const; // Getter for Q
+    pp::matrix<double> getR() const; // Getter for R
+    pp::matrix<double> solve(const pp::matrix<double>& b) const; 
     double det() const;
     
 
