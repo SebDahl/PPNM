@@ -32,6 +32,7 @@ vector operator-(const vector&, const vector&);
 vector operator*(const vector&, NUMBER);
 vector operator*(NUMBER, const vector&);
 vector operator/(const vector&, NUMBER);
+bool operator==(const vector&, const vector&);
 
 struct matrix {
 	std::vector<vector> cols;

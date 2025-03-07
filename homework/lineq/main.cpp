@@ -67,6 +67,7 @@ int main() {
         }
     }
 
+    std::cout << "First we perform and check the QR decomposition:" << std::endl;
     // Perform QR decomposition
     pp::QR qr(A);
     pp::matrix Q = qr.getQ();
@@ -118,6 +119,84 @@ int main() {
     } else {
         std::cerr << "Error opening A.txt\n";
     }
+
+
+
+    std::cout << "QR decomposition completed. Now moving on to solving a system of equations, using a square matrix B." << std::endl; 
+    // Generate random matrix B
+    pp::matrix B(n, n);
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            B(i, j) = dist(gen);
+        }
+    }
+
+    // Random vector b of same size: n
+    pp::vector b(n);
+    for (int i = 0; i < n; i++) {
+        b[i] = dist(gen);
+    }
+
+    // QR decomp of B
+    pp::QR qrB(B);
+    pp::matrix QB = qrB.getQ();
+    pp::matrix RB = qrB.getR();
+
+    // Solve system of equations
+    pp::vector x = qrB.solve(b);
+
+    // Validate the solution
+    pp::vector Bx = B * x;
+    std::cout << "Checking if Bx = b: " << (Bx == b ? "PASSED" : "FAILED") << std::endl;
+
+    // Write B to "B.txt"
+    std::ofstream bfile("B.txt");
+    if (bfile.is_open()) {
+        for (int i = 0; i < B.sizerow(); i++) {
+            for (int j = 0; j < B.sizecol(); j++) {
+                bfile << B(i, j) << " ";
+            }
+            bfile << "\n";
+        }
+        bfile.close();
+    } else {
+        std::cerr << "Error opening B.txt\n";
+    }
+
+    // Write b to "b.txt"
+    std::ofstream bfile2("b.txt");
+    if (bfile2.is_open()) {
+        for (int i = 0; i < b.size(); i++) {
+            bfile2 << b[i] << " ";
+        }
+        bfile2.close();
+    } else {
+        std::cerr << "Error opening b.txt\n";
+    }
+
+    // Write x to "x.txt"
+    std::ofstream xfile("x.txt");
+    if (xfile.is_open()) {
+        for (int i = 0; i < x.size(); i++) {
+            xfile << x[i] << " ";
+        }
+        xfile.close();
+    } else {
+        std::cerr << "Error opening x.txt\n";
+    }
+
+    // Write Bx to "Bx.txt"
+    std::ofstream bxfile("Bx.txt");
+    if (bxfile.is_open()) {
+        for (int i = 0; i < Bx.size(); i++) {
+            bxfile << Bx[i] << " ";
+        }
+        bxfile.close();
+    } else {
+        std::cerr << "Error opening Bx.txt\n";
+    }
+
 
     return 0;
 }

@@ -63,7 +63,7 @@ pp::vector QR::solve(const pp::vector& b) const {
     for (int i = 0; i < n; i++) {
         double sum = 0.0;
         for (int j = 0; j < m; j++) {
-            sum += Q[j][i] * b[j];
+            sum += Q[i][j] * b[j];
         }
         y[i] = sum;
     }

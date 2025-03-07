@@ -53,6 +53,14 @@ vector operator-(const vector& a, const vector& b){
 	FOR_V(i,result) result.data[i]=a.data[i]-b.data[i];
 	return result; }
 
+bool operator==(const vector& a, const vector& b) {
+	if (a.size() != b.size()) return false;
+	for (size_t i = 0; i < a.size(); i++) {
+		if (std::abs(a[i] - b[i]) > 1e-10) return false;
+	}
+	return true;
+}
+
 void matrix::resize(int n, int m){
 	cols.resize(m);
 	for(int i=0;i<m;++i)cols[i].resize(n);
