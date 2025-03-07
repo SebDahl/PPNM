@@ -197,6 +197,52 @@ int main() {
         std::cerr << "Error opening Bx.txt\n";
     }
 
+    // Solve is done. Now computing inverse of B
+    std::cout << "System of equations solved. Now computing the inverse of B." << std::endl;
+    pp::matrix invB = qrB.inverse(B);
+
+    // Validate the inverse
+    pp::matrix BBinv = B * invB;
+    
+    pp::matrix I(n, n);
+    for (int i = 0; i < n; i++) {
+        I(i, i) = 1.0;
+    }
+
+    std::cout << "Checking if B * B^-1 = I: " << (BBinv == I ? "PASSED" : "FAILED") << std::endl;
+
+    // Write invB to "invB.txt"
+    std::ofstream invbfile("invB.txt");
+    if (invbfile.is_open()) {
+        for (int i = 0; i < invB.sizerow(); i++) {
+            for (int j = 0; j < invB.sizecol(); j++) {
+                invbfile << invB(i, j) << " ";
+            }
+            invbfile << "\n";
+        }
+        invbfile.close();
+    } else {
+        std::cerr << "Error opening invB.txt\n";
+    }
+
+    // Write BBinv to "BBinv.txt"
+    std::ofstream bbinvfile("BBinv.txt");
+    if (bbinvfile.is_open()) {
+        for (int i = 0; i < BBinv.sizerow(); i++) {
+            for (int j = 0; j < BBinv.sizecol(); j++) {
+                bbinvfile << BBinv(i, j) << " ";
+            }
+            bbinvfile << "\n";
+        }
+        bbinvfile.close();
+    } else {
+        std::cerr << "Error opening BBinv.txt\n";
+    }
+
+
+    // 
+
+
 
     return 0;
 }

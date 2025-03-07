@@ -77,6 +77,7 @@ matrix operator*(const matrix&, const matrix&);
 matrix operator*(const matrix&, NUMBER);
 matrix operator*(NUMBER, const matrix&);
 matrix operator/(const matrix&, NUMBER);
+bool operator==(const matrix&, const matrix&);
 vector operator*(const matrix&, const vector&);
 }
 #endif

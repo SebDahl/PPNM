@@ -83,6 +83,23 @@ pp::vector QR::solve(const pp::vector& b) const {
     return x;
 }
 
+pp::matrix QR::inverse(const pp::matrix& A) const {
+    int n = A.sizecol();
+    pp::matrix invA(n, n);
+    pp::vector e(n);
+
+    for (int i = 0; i < n; i++) {
+        e[i] = 1.0;
+        pp::vector col = solve(e);
+        for (int j = 0; j < n; j++) {
+            invA(j, i) = col[j];
+        }
+        e[i] = 0.0;
+    }
+
+    return invA;
+}
+
 double QR::det() const {
     int n = R.sizerow();
     double determinant = 1.0;

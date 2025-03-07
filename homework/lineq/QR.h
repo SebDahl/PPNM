@@ -18,6 +18,7 @@ public:
     pp::matrix getQ() const; // Getter for Q
     pp::matrix getR() const; // Getter for R
     pp::vector solve(const pp::vector& b) const; 
+    pp::matrix inverse(const pp::matrix& A) const; 
     double det() const;
     
 

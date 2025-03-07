@@ -134,6 +134,16 @@ matrix operator*(const matrix& A, const matrix& B){
 		}
 	return R;
 	}
+
+bool operator==(const matrix& A, const matrix& B) {
+	if (A.sizerow() != B.sizerow() || A.sizecol() != B.sizecol()) return false;
+	for (int i = 0; i < A.sizerow(); i++) {
+		for (int j = 0; j < A.sizecol(); j++) {
+			if (std::abs(A(i, j) - B(i, j)) > 1e-10) return false;
+		}
+	}
+	return true;
+}
 /*
 vector matrix::get_col(int j){
 	vector cj=SELF[j];
