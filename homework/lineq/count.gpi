@@ -1,0 +1,26 @@
+# Set the output format to SVG
+set terminal svg enhanced size 800,600
+set output "count.svg"
+
+# Set title and labels
+set title "QR Factorization Time vs. Matrix Size"
+set xlabel "Matrix Size (N)"
+set ylabel "Time (seconds)"
+set grid
+
+# Define the fitting function (assuming cubic fit O(N^3))
+f(x) = a*x**3 + b*x**2 + c*x + d
+
+# Fit the data to the function
+fit f(x) "out.times.data" using 1:2 via a, b, c, d
+
+# Plot the data and the fitted function
+plot "out.times.data" using 1:2 with lines linewidth 2 lc rgb "purple" title "Measured Time", \
+     f(x) with lines linewidth 2 lc rgb "red" title "Fitted O(N^3)"
+
+# Optionally print the fitted parameters
+print "Fitted parameters:"
+print "a = ", a
+print "b = ", b
+print "c = ", c
+print "d = ", d

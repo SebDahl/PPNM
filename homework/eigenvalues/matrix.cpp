@@ -162,6 +162,4 @@ void matrix::print(std::string s,FILE* stream){
 		fprintf(stream,"\n");
 		}
 	}
-
-
 }//pp

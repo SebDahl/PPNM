@@ -1,0 +1,26 @@
+CXX = g++
+CXXFLAGS += -std=c++23 -O2 # -Wall
+
+TARGETS = Out.txt
+EXE = main.exe
+
+all: $(TARGETS)
+
+# Run the executable to generate Out.txt
+Out.txt: $(EXE)
+	./$(EXE)
+
+# Compile main.exe
+$(EXE): main.cpp QR.o matrix.o
+	$(CXX) $(CXXFLAGS) main.cpp QR.o matrix.o -o $(EXE)
+
+# Compile QR.o
+QR.o: QR.cpp QR.h matrix.h
+	$(CXX) $(CXXFLAGS) -c QR.cpp -o QR.o
+
+# Compile matrix.o
+matrix.o: matrix.cpp matrix.h
+	$(CXX) $(CXXFLAGS) -c matrix.cpp -o matrix.o
+
+clean:
+	$(RM) $(EXE) Out.txt *.o
