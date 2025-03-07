@@ -58,7 +58,7 @@ void matrix::resize(int n, int m){
 	for(int i=0;i<m;++i)cols[i].resize(n);
 	}
 
-matrix matrix::transpose(){
+matrix matrix::transpose() const{
     matrix R; R.resize(sizecol(),sizerow());
     for(int j=0;j<R.sizecol();++j)
     for(int i=0;i<R.sizerow();++i)

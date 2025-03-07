@@ -45,16 +45,19 @@ struct matrix {
 	int sizecol() const {return cols.size();}
 	void resize(int n, int m);
 	
-	NUMBER get (int i, int j) {return cols[j][i];}
+	NUMBER get (int i, int j) const {return cols[j][i];}
 	void set(int i, int j, NUMBER value){cols[j][i] = value;}
-	NUMBER& operator()(int i, int j){return cols[j][i];}
+	NUMBER& operator()(int i, int j) { return cols[j][i]; }       // Non-const (modifies matrix)
+	const NUMBER& operator()(int i, int j) const { return cols[j][i]; }  // Const version (read-only)
+	
+
 	NUMBER& operator[](int i, int j){return cols[j][i];}
 	const NUMBER& operator[](int i, int j) const {return cols[j][i];}
 	vector& operator[](int i){return cols[i];}
 	const vector& operator[](int i) const {return cols[i];}
 	vector get_col(int j);
 	void set_col(int j,vector& cj);
-	matrix transpose();
+	matrix transpose() const;
 
 	matrix& operator+=(const matrix&);
 	matrix& operator-=(const matrix&);

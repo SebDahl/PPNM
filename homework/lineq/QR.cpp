@@ -6,17 +6,17 @@
 
 namespace pp {
 
-QR::QR(const matrix& A) {
+QR::QR(const pp::matrix& A) {
     int m = A.sizerow();
     int n = A.sizecol();
     assert(m >= n && "Matrix must have more rows than columns (m >= n)");
 
-    Q = matrix(m, n);  // Q is m × n
-    R = matrix(n, n);  // R is n × n (upper triangular)
-    matrix A_copy = A;
+    Q = pp::matrix(m, n);  // Q is m × n
+    R = pp::matrix(n, n);  // R is n × n (upper triangular)
+    pp::matrix A_copy = A;
 
     for (int i = 0; i < n; i++) {
-        vector a = A_copy[i];  
+        pp::vector a = A_copy[i];  
         double a_norm = 0.0;
 
         for (int j = 0; j < a.size(); j++) {
@@ -29,11 +29,11 @@ QR::QR(const matrix& A) {
         }
 
         R(i, i) = a_norm;
-        vector q = a / a_norm;
+        pp::vector q = a / a_norm;
         Q[i] = q;  // Assuming `set_col(i, q)` should be replaced with `Q[i] = q`
 
         for (int j = i + 1; j < n; j++) {
-            vector b = A_copy[j];  // Assuming `get_col(j)` should be replaced with `A_copy[j]`
+            pp::vector b = A_copy[j];  // Assuming `get_col(j)` should be replaced with `A_copy[j]`
             double dot = 0.0;
 
             for (int k = 0; k < b.size(); k++) {
@@ -41,19 +41,25 @@ QR::QR(const matrix& A) {
             }
 
             R(i, j) = dot;
-            vector new_b = b - q * dot;
+            pp::vector new_b = b - q * dot;
             A_copy[j] = new_b;  // Assuming `set_col(j, new_b)` should be replaced with `A_copy[j] = new_b`
         }
     }
 }
+pp::matrix QR::getQ() const {
+    return Q;
+}
 
-vector QR::solve(const vector& b) const {
+pp::matrix QR::getR() const {
+    return R;
+}
+pp::vector QR::solve(const pp::vector& b) const {
     int n = Q.sizecol();
     int m = Q.sizerow();
     assert(b.size() == m && "Matrix Q and vector b must have the same number of rows.");
 
     // Compute y = Q^T * b
-    vector y(n);
+    pp::vector y(n);
     for (int i = 0; i < n; i++) {
         double sum = 0.0;
         for (int j = 0; j < m; j++) {
@@ -63,7 +69,7 @@ vector QR::solve(const vector& b) const {
     }
 
     // Solve Rx = y using back-substitution
-    vector x(n);
+    pp::vector x(n);
     for (int i = n - 1; i >= 0; i--) {
         double sum = 0.0;
         for (int k = i + 1; k < n; k++) {
@@ -81,7 +87,7 @@ double QR::det() const {
     int n = R.sizerow();
     double determinant = 1.0;
     for (int i = 0; i < n; i++) {
-        determinant *= R(i, i);
+        determinant *= R.get(i, i);
     }
     return determinant;
 }
