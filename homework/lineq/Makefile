@@ -28,7 +28,7 @@
 
 
 CXX = g++
-CXXFLAGS += -std=c++23 -O2
+CXXFLAGS += -std=c++23 -O3
 
 TARGETS = out.times.data main.exe count.svg
 EXE = main.exe
