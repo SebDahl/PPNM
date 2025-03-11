@@ -1,6 +1,8 @@
 #include"matrix.h"
 #include<string>
 #include<algorithm>
+#include <fstream>
+#include <iostream>
 #define SELF (*this)
 #define FOR_V(i,v) for(int i=0;i<v.size();i++)
 #define FOR_COLS(i,A) for(int i=0;i<A.sizecol();i++)
@@ -61,6 +63,14 @@ bool operator==(const vector& a, const vector& b) {
 	return true;
 }
 
+bool approx_equal(const vector& a, const vector& b, double tol) {
+	if (a.size() != b.size()) return false;
+	for (size_t i = 0; i < a.size(); i++) {
+		if (std::abs(a[i] - b[i]) > tol) return false;
+	}
+	return true;
+}
+
 void matrix::resize(int n, int m){
 	cols.resize(m);
 	for(int i=0;i<m;++i)cols[i].resize(n);
@@ -73,6 +83,44 @@ matrix matrix::transpose() const{
         R[i,j]=SELF[j,i];
     return R;
     }
+
+matrix matrix::identity(int n){
+	matrix I; I.resize(n,n);
+	for(int i=0;i<n;i++)I(i,i)=1;
+	return I;
+	}
+
+void matrix::write(const matrix& A, const std::string& filename){
+		std::ofstream afile(filename);
+		if (afile.is_open()) {
+			for (int i = 0; i < A.sizerow(); i++) {
+				for (int j = 0; j < A.sizecol(); j++) {
+					afile << A(i, j) << " ";
+				}
+				afile << "\n";
+			}
+			afile.close();
+		} else {
+			std::cerr << "Error opening " << filename << "\n";
+		}
+}
+
+
+void vector::write(const vector& v, const std::string& filename){
+	std::ofstream vfile(filename);
+	if
+	(vfile.is_open()) {
+		for (int i = 0; i < v.size(); i++) {
+			vfile << v[i] << " ";
+		}
+		vfile.close();
+	} else {
+		std::cerr << "Error opening " << filename << "\n";
+	}
+}
+
+
+
 
 matrix& matrix::operator+=(const matrix& other) {
 	FOR_COLS(i,SELF) SELF[i]+=other[i];
@@ -144,6 +192,25 @@ bool operator==(const matrix& A, const matrix& B) {
 	}
 	return true;
 }
+
+bool operator!=(const matrix& A, const matrix& B) {
+	return !(A == B);
+}
+
+bool operator!=(const vector& a, const vector& b) {
+	return !(a == b);
+}
+
+bool approx_equal(const matrix& A, const matrix& B, double tol) {
+	if (A.sizerow() != B.sizerow() || A.sizecol() != B.sizecol()) return false;
+	for (int i = 0; i < A.sizerow(); i++) {
+		for (int j = 0; j < A.sizecol(); j++) {
+			if (std::abs(A(i, j) - B(i, j)) > tol) return false;
+		}
+	}
+	return true;
+}
+
 /*
 vector matrix::get_col(int j){
 	vector cj=SELF[j];
@@ -162,4 +229,8 @@ void matrix::print(std::string s,FILE* stream){
 		fprintf(stream,"\n");
 		}
 	}
+
+
+
+
 }//pp

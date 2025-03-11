@@ -74,6 +74,14 @@ matrix matrix::transpose() const{
     return R;
     }
 
+matrix matrix::identity(int n){
+	matrix I; I.resize(n,n);
+	for(int i=0;i<n;i++)I(i,i)=1;
+	return I;
+	}
+
+
+
 matrix& matrix::operator+=(const matrix& other) {
 	FOR_COLS(i,SELF) SELF[i]+=other[i];
 	return SELF; }
@@ -162,6 +170,8 @@ void matrix::print(std::string s,FILE* stream){
 		fprintf(stream,"\n");
 		}
 	}
+
+
 
 
 }//pp

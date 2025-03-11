@@ -59,6 +59,7 @@ struct matrix {
 	vector get_col(int j);
 	void set_col(int j,vector& cj);
 	matrix transpose() const;
+	static matrix identity(int n);
 
 	matrix& operator+=(const matrix&);
 	matrix& operator-=(const matrix&);
