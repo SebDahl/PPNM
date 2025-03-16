@@ -3,6 +3,7 @@ CXXFLAGS += -std=c++23 -O2 # -Wall
 
 TARGETS = Out.txt
 EXE = main.exe
+HYDROGEN = hydrogen.exe
 
 all: $(TARGETS)
 
@@ -13,6 +14,10 @@ Out.txt: $(EXE)
 # Compile main.exe
 $(EXE): main.cpp QR.o matrix.o EVD.o
 	$(CXX) $(CXXFLAGS) main.cpp QR.o matrix.o EVD.o -o $(EXE)
+
+# Compile hydrogen.exe
+$(HYDROGEN): hydrogen.cpp QR.o matrix.o EVD.o
+	$(CXX) $(CXXFLAGS) hydrogen.cpp QR.o matrix.o EVD.o -o $(hydrogen)
 
 # Compile QR.o
 QR.o: QR.cpp QR.h matrix.h
@@ -27,4 +32,4 @@ matrix.o: matrix.cpp matrix.h
 	$(CXX) $(CXXFLAGS) -c matrix.cpp -o matrix.o
 
 clean:
-	$(RM) $(EXE) Out.txt *.o
+	$(RM) $(EXE) $(HYDROGEN) Out.txt *.o
