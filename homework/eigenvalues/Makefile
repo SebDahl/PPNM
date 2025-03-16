@@ -17,7 +17,7 @@ $(EXE): main.cpp QR.o matrix.o EVD.o
 
 # Compile hydrogen.exe
 $(HYDROGEN): hydrogen.cpp QR.o matrix.o EVD.o
-	$(CXX) $(CXXFLAGS) hydrogen.cpp QR.o matrix.o EVD.o -o $(hydrogen)
+	$(CXX) $(CXXFLAGS) hydrogen.cpp QR.o matrix.o EVD.o -o $(HYDROGEN)
 
 # Compile QR.o
 QR.o: QR.cpp QR.h matrix.h

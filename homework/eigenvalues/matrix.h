@@ -25,6 +25,7 @@ struct vector {
 	vector& operator*=(NUMBER);
 	vector& operator/=(NUMBER);
 	void print(std::string s="",FILE* stream=stdout) const;
+	void append(const double a);
 
 	static void write(const vector& v, const std::string& filename);
 	static vector read(const std::string& filename);

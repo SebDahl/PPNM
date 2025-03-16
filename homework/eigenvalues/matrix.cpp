@@ -119,6 +119,10 @@ void vector::write(const vector& v, const std::string& filename){
 	}
 }
 
+void vector::append(const double a){
+	data.push_back(a);
+}
+
 
 
 
