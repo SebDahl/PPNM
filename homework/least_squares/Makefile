@@ -44,4 +44,4 @@ E0s_rmax.txt rmaxs.txt: hydrogen.exe
 # 	./hydrogen.exe > out.times.data
 
 clean:
-	$(RM) $(EXE) $(HYDROGEN) Out.txt *.o *.txt *.data *.svg
+	$(RM) $(EXE) $(HYDROGEN) Out.txt *.o *.txt *.data E0rmax.svg
