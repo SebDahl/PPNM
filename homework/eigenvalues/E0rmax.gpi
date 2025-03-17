@@ -1,0 +1,22 @@
+set terminal svg enhanced size 800,600
+set output "E0rmax.svg"
+set title "Convergence"
+set xlabel "rmax"
+set ylabel "E0"
+set grid
+
+plot "<paste rmaxs.txt E0s_rmax.txt" using 1:2 with lines linewidth 2 lc rgb "purple" title "Convergence"
+
+
+set terminal svg enhanced size 800,600
+set output "E0dr.svg"
+set title "Convergence"
+set xlabel "dr"
+set ylabel "E0"
+set grid
+
+plot "<paste drs.txt E0s_dr.txt" using 1:2 with lines linewidth 2 lc rgb "purple" title "Convergence"
+
+
+
+

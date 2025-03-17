@@ -111,7 +111,7 @@ void vector::write(const vector& v, const std::string& filename){
 	if
 	(vfile.is_open()) {
 		for (int i = 0; i < v.size(); i++) {
-			vfile << v[i] << " ";
+			vfile << v[i] << "\n";
 		}
 		vfile.close();
 	} else {

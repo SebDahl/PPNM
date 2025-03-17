@@ -59,7 +59,7 @@ QR.o: QR.cpp QR.h matrix.h
 matrix.o: matrix.cpp matrix.h
 	$(CXX) $(CXXFLAGS) -c matrix.cpp -o matrix.o
 
-count.svg: count.gpi out.times.data
+count.svg: E0rmax.gpi E0s_rmax.txt rmaxs.txt
 	gnuplot $<
 
 clean:

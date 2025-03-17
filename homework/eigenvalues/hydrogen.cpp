@@ -67,6 +67,7 @@ int main(int argc, char* argv[]) {
 
     double E0 = w[0];
     pp::vector E0s(0);
+    pp::vector rmaxs(0);
     for (int j = 5; j < 15; j++) {
         rmax = j;
         dr = 0.3;
@@ -106,12 +107,15 @@ int main(int argc, char* argv[]) {
         E0 = w[0];
         
         E0s.append(E0);
+        rmaxs.append(rmax);
 
 
     }
     pp::vector::write(E0s, "E0s_rmax.txt");
+    pp::vector::write(rmaxs, "rmaxs.txt");
 
     pp::vector E0s2(0);
+    pp::vector drs(0);
     for (double k = 0.1; k < 0.7; k += 0.1) {
         rmax = 10;
         dr = k;
@@ -151,9 +155,11 @@ int main(int argc, char* argv[]) {
         E0 = w[0];
 
         E0s2.append(E0);
+        drs.append(dr);
 
     }
     pp::vector::write(E0s2, "E0s_dr.txt");
+    pp::vector::write(drs, "drs.txt");
 
     std::cout << "Convergence test complete" << std::endl;
 
