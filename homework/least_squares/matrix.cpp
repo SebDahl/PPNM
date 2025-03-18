@@ -2,6 +2,7 @@
 #include<string>
 #include<algorithm>
 #include <fstream>
+#include <sstream>
 #include <iostream>
 #define SELF (*this)
 #define FOR_V(i,v) for(int i=0;i<v.size();i++)
@@ -43,6 +44,11 @@ vector operator*(const vector& a, NUMBER x){
 vector operator*(NUMBER x,const vector& a){
 	vector result; result.resize(a.size());
 	FOR_V(i,result) result.data[i]=a.data[i]*x;
+	return result; }
+
+double operator*(const vector& a, const vector& b){
+	double result=0;
+	FOR_V(i,a) result+=a.data[i]*b.data[i];
 	return result; }
 
 vector operator+(const vector& a, const vector& b){
@@ -105,6 +111,49 @@ void matrix::write(const matrix& A, const std::string& filename){
 		}
 }
 
+matrix matrix::loadtxt(const std::string& filename) {
+    std::ifstream file(filename);
+    if (!file) {
+        std::cerr << "Error: Could not open the file " << filename << "\n";
+        return matrix(); // Return an empty matrix
+    }
+
+    std::vector<std::vector<double>> temp_data;
+    std::string line;
+
+    while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        std::vector<double> row;
+        double value;
+
+        while (iss >> value) { // Read space-separated values
+            row.push_back(value);
+        }
+
+        if (!row.empty()) {
+            temp_data.push_back(row);
+        }
+    }
+
+    if (temp_data.empty()) {
+        std::cerr << "Error: File is empty or has invalid format.\n";
+        return matrix();
+    }
+
+    int rows = temp_data.size();
+    int cols = temp_data[0].size();
+    matrix result;
+    result.resize(rows, cols);
+
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            result[i, j] = temp_data[i][j];
+        }
+    }
+
+    return result;
+}
+
 
 void vector::write(const vector& v, const std::string& filename){
 	std::ofstream vfile(filename);
@@ -117,6 +166,21 @@ void vector::write(const vector& v, const std::string& filename){
 	} else {
 		std::cerr << "Error opening " << filename << "\n";
 	}
+}
+
+
+vector vector::loadtxt(const std::string& filename){
+	std::ifstream afile(filename);
+	if (!afile){
+		std::cerr << "Error opening " << filename << "\n";
+		return vector();
+	}
+	vector data;
+	double value;
+	while (afile >> value){
+		data.append(value);
+	}
+	return data;
 }
 
 void vector::append(const double a){
@@ -215,16 +279,16 @@ bool approx_equal(const matrix& A, const matrix& B, double tol) {
 	return true;
 }
 
-/*
+
 vector matrix::get_col(int j){
 	vector cj=SELF[j];
 	return cj;
 	}
 
 void matrix::set_col(int j,vector& cj){
-	SELF[i]=cj;
+	SELF[j]=cj;
 	}
-*/
+
 
 void matrix::print(std::string s,FILE* stream){
 	fprintf(stream,"%s\n",s.c_str());

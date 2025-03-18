@@ -5,98 +5,69 @@
 #include "QR.h"
 #include <random>
 #include <fstream>
+#include <functional>
 #include <string>
 
 
 
 
+
+
+
+// std::vector lsfit(std::function<double, double>[] fs, vector x, vector y, vector dy);
+
+
 int main(){
-    int n = 10;
-    int m = n/2;
 
-    // Generate random symmetric matrix A
-    pp::matrix A(n, n);
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_real_distribution<double> dist(1.0, 10.0);
+    std::vector<std::function<double(double)>> fs = {
+        [](double z) { return 1.0; },
+        [](double z) { return z; },
+        [](double z) { return z * z; }
+        };
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            double rand = dist(gen);
-            A(i, j) = rand;
-            A(j, i) = rand;
-        }
-    }
-
-    // Perform cyclic sweep
-    pp::EVD EVD(A);
-    pp::vector w = EVD.getW();
-    pp::matrix V = EVD.getV();
-    pp::matrix D = EVD.getD();
-
-    // write w to "w.txt" using the function write from matrix.h
-    pp::vector::write(w, "w.txt");
-
-    // write V to "V.txt" using the function write from matrix.h
-    pp::matrix::write(V, "V.txt");
-
-    // write D to "D.txt" using the function write from matrix.h
+    pp::matrix Data = pp::matrix::loadtxt("data.data");
+    pp::vector x = Data.get_col(0);
+    pp::vector y = Data.get_col(1);
+    pp::vector dy = Data.get_col(2);
     
-    pp::matrix::write(D, "D.txt");
 
+    pp::matrix A = pp::matrix(x.size(), fs.size());
+    pp::vector b = y;
+    std::cout << "Size of x: " << x.size() << std::endl;
 
-    // Verification
-    pp::matrix VT = V.transpose();
+    pp::matrix::write(A, "A.txt");
+    pp::vector::write(x, "x.txt");
+    std::cout << "x.size() = " << x.size() << ", fs.size() = " << fs.size() << std::endl;
 
-
-
-
-    pp::matrix VTA = VT * A;
-    pp::matrix VTAV = VTA * V;
-
-    std::cout << "Checking if V^T * A * V = D: " << (pp::approx_equal(VTAV, D) ? "PASSED" : "FAILED") << std::endl;
-
-    pp::matrix::write(VTAV, "VTAV.txt");
-
-    pp::matrix VD = V * D;
-    pp::matrix VDVT = VD * VT;
-
-    std::cout << "Checking if V * D * V^T = A: " << (pp::approx_equal(VDVT, A) ? "PASSED" : "FAILED") << std::endl;
-
-
-    // check that V^T * V = I
-    pp::matrix VTV = VT * V;
-    bool isOrthogonal = true;
-    for (int i = 0; i < VTV.sizerow(); i++) {
-        for (int j = 0; j < VTV.sizecol(); j++) {
-            if (i == j && std::abs(VTV(i, j) - 1.0) > 1e-10) {
-                isOrthogonal = false;
-                break;
-            }
-            if (i != j && std::abs(VTV(i, j)) > 1e-10) {
-                isOrthogonal = false;
-                break;
-            }
-        }
+    
+    for (int i = 0; i < fs.size(); i++) {
+    for (int j = 0; j < x.size(); j++) {
+        double value = fs[i](x[j]);
+        // std::cout << "Setting A(" << j << ", " << i << ") to " << value << std::endl;
+        A(j, i) = value;
     }
+}
+    std::cout << "Test" << std::endl;
+    pp::matrix::write(A, "A2.txt");
 
-    std::cout << "Checking if V^T * V = I: " << (isOrthogonal ? "PASSED" : "FAILED") << std::endl;
+    pp::QR qrA(A);
+    pp::vector c = qrA.solve(b);
 
-    pp::matrix VVT = V * VT;
-    bool isOrthogonal2 = true;
-    for (int i = 0; i < VVT.sizerow(); i++) {
-        for (int j = 0; j < VVT.sizecol(); j++) {
-            if (i == j && std::abs(VVT(i, j) - 1.0) > 1e-10) {
-                isOrthogonal2 = false;
-                break;
-            }
-            if (i != j && std::abs(VVT(i, j)) > 1e-10) {
-                isOrthogonal2 = false;
-                break;
-            }
-        }
-    }
-    std::cout << "Checking if V * V^T = I: " << (isOrthogonal2 ? "PASSED" : "FAILED") << std::endl;
+    pp::vector yfit = A.transpose() * c;
+    pp::vector residuals = y - yfit;
+    pp::vector chi2 = residuals * residuals / (dy * dy);
+
+    pp::vector::write(c, "c.txt");
+
+    // std::cout << "Coefficients: " << c << std::endl;
+    // std::cout << "Residuals: " << residuals << std::endl;
+    // std::cout << "Chi^2: " << chi2[0] << std::endl;
+
+    
+
+    
+
+    
 
     return 0;
 }

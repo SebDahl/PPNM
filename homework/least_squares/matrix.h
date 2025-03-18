@@ -28,13 +28,14 @@ struct vector {
 	void append(const double a);
 
 	static void write(const vector& v, const std::string& filename);
-	static vector read(const std::string& filename);
+	static vector loadtxt(const std::string& filename);
 };
 
 vector operator+(const vector&, const vector&);
 vector operator-(const vector&, const vector&);
 vector operator*(const vector&, NUMBER);
 vector operator*(NUMBER, const vector&);
+double operator*(const vector&, const vector&);
 vector operator/(const vector&, NUMBER);
 bool operator==(const vector&, const vector&);
 bool operator!=(const vector&, const vector&);
@@ -68,7 +69,7 @@ struct matrix {
 	matrix transpose() const;
 	static matrix identity(int n);
 	static void write(const matrix& A, const std::string& filename);
-	static matrix read(const std::string& filename);
+	static matrix loadtxt(const std::string& filename);
 
 	matrix& operator+=(const matrix&);
 	matrix& operator-=(const matrix&);
