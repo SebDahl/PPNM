@@ -12,7 +12,23 @@
 
 
 
+pp::vector lsfit(std::vector<std::function<double(double)>> fs_2, vector x, vector y, vector dy) {
+    pp::matrix A = pp::matrix(x.size(), fs_2.size());
+    pp::vector b = y;
 
+    for (int i = 0; i < fs.size(); i++) {
+        for (int j = 0; j < x.size(); j++) {
+            double value = fs[i](x[j]);
+            // std::cout << "Setting A(" << j << ", " << i << ") to " << value << std::endl;
+            A(j, i) = value;
+        }
+        }
+
+    pp::QR qrA(A);
+    pp::vector c = qrA.solve(b);
+
+    return c;
+}
 
 // std::vector lsfit(std::function<double, double>[] fs, vector x, vector y, vector dy);
 
@@ -20,6 +36,12 @@
 int main(){
 
     std::vector<std::function<double(double)>> fs = {
+        [](double z) { return 1.0; },
+        [](double z) { return z; },
+        [](double z) { return z * z; }
+        };
+    
+    std::vector<std::function<double(double)>> fs_exp = {
         [](double z) { return 1.0; },
         [](double z) { return z; },
         [](double z) { return z * z; }
@@ -46,7 +68,7 @@ int main(){
         // std::cout << "Setting A(" << j << ", " << i << ") to " << value << std::endl;
         A(j, i) = value;
     }
-}
+    }
     std::cout << "Test" << std::endl;
     pp::matrix::write(A, "A2.txt");
 
@@ -64,6 +86,8 @@ int main(){
     // std::cout << "Chi^2: " << chi2[0] << std::endl;
 
     
+    // pp::vector c_2 = lsfit(fs, x, y, dy);
+    // pp::vector::write(c_2, "c_2.txt");
 
     
 
