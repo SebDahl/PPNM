@@ -1,9 +1,8 @@
 CXX = g++
 CXXFLAGS += -std=c++23 -O2 # -Wall
 
-TARGETS = Out.txt
+TARGETS = Out.txt rad.svg
 EXE = main.exe
-HYDROGEN = hydrogen.exe
 
 all: $(TARGETS)
 
@@ -27,6 +26,9 @@ EVD.o: EVD.cpp EVD.h matrix.h
 matrix.o: matrix.cpp matrix.h
 	$(CXX) $(CXXFLAGS) -c matrix.cpp -o matrix.o
 
+rad.svg: main.exe time_day.data plot_data.txt activity.data rad.gpi
+	gnuplot rad.gpi
+
 
 clean:
-	$(RM) $(EXE) Out.txt *.o *.txt 
+	$(RM) $(EXE) Out.txt *.o *.txt *.svg

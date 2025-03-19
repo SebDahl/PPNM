@@ -1,0 +1,13 @@
+set terminal svg enhanced size 800,600
+set output "rad.svg"
+set title "Radioactive decay"
+set xlabel "time [days]"
+set ylabel "Activity"
+set grid
+
+plot "<paste time_day.data plot_data.txt" using 1:2 with lines linewidth 2 lc rgb "purple" title "Best fit" , \
+    "data_rad.data" using 1:2:3 with yerrorbars linewidth 2 lc rgb "red" title "Data"
+
+
+
+
