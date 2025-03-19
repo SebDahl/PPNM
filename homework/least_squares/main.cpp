@@ -168,6 +168,20 @@ int main(){
     std::cout << "The modern value of the half-life is 3.6316(14) days, so it does not agree within uncertainty but not too far." << std::endl;
 
 
+    pp::vector c_3_upper = c_3 + dc_3;
+    pp::vector c_3_lower = c_3 - dc_3;
+
+    pp::vector plot_data_upper = pp::vector(x_rad.size());
+    pp::vector plot_data_lower = pp::vector(x_rad.size());
+
+    for (int i = 0; i < x_rad.size(); i++) {
+        plot_data_upper[i] = plot_func(x_rad[i], c_3_upper);
+        plot_data_lower[i] = plot_func(x_rad[i], c_3_lower);
+    }
+
+    pp::vector::write(plot_data_upper, "plot_data_upper.txt");
+    pp::vector::write(plot_data_lower, "plot_data_lower.txt");
+
     
 
     
