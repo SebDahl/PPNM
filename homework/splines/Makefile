@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS += -std=c++23 -O2 # -Wall
 
-TARGETS = Out.txt rad.svg
+TARGETS = Out.txt part_a_int.svg
 EXE = main.exe
 
 all: $(TARGETS)
@@ -26,8 +26,8 @@ EVD.o: EVD.cpp EVD.h matrix.h
 matrix.o: matrix.cpp matrix.h
 	$(CXX) $(CXXFLAGS) -c matrix.cpp -o matrix.o
 
-rad.svg: main.exe time_day.data plot_data.txt activity.data rad.gpi
-	gnuplot rad.gpi
+part_a_int.svg: main.exe x_interpolated.txt y_interpolated.txt x_integrated.txt y_integrated.txt x_i.txt y_i.txt part_a_int.gpi
+	gnuplot part_a_int.gpi
 
 
 clean:
