@@ -48,8 +48,25 @@ double linterp(pp::vector x, pp::vector y, double z){
 
 
 
-double linterpIntegrate(pp::vector x, pp::vector y, double z){
-
+double linterpIntegrate(pp::vector x, pp::vector y, double z) {
+    if (z < x[0] || z > x[x.size() - 1]) {
+        throw std::runtime_error("linterpIntegrate: z out of bounds");
+    }
+    
+    double integral = 0.0;
+    for(int i=0;x[i+1] < z; i++;) {
+        double dx = x[i+1] - x[i];
+        double dy = y[i+1] - y[i];
+        double slope = dy / dx;
+        integral += y[i] * dx + 0.5 * slope * dx * dx;
+    }
+    
+    double dx = z - x[i];
+    double dy = y[i+1] - y[i];
+    double slope = dy / (x[i+1] - x[i]);
+    integral += y[i] * dx + 0.5 * slope * dx * dx;
+    
+    return integral;
 }
 
 
