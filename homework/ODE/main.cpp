@@ -9,6 +9,7 @@
 #include <string>
 #include <stdexcept>
 #include <vector>
+#include <algorithm>
 
 
 struct RKStep12Result {
@@ -43,30 +44,39 @@ driver_result driver(
     double acc=0.1,                                        /* absolute accuracy goal */
     double eps=0.01                                     /* relative accuracy goal */
 ){
-    double a = interval.first; double b = interval.second; double x = a; pp::vector y = yinit;
+    double a = interval.first; double b = interval.second; double x = a; pp::vector y = yinit.copy();
     pp::vector xlist = pp::vector(0); xlist.append(x);
-    pp::vector ylist = pp::vector(0); ylist.append(y);
+    pp::vector ylist = pp::vector(0); ylist.append(y[0]);
     do{
         if(x>=b) return {xlist, ylist};
         if(x+h>b) h=b-x;
         auto [yh, delta_y] = rkstep12(f, x, y, h);
-        double tol = (acc+eps*yh.norm())*h/(b-a);
+        double tol = (acc+eps*yh.norm())*std::sqrt(h/(b-a));
         double err = delta_y.norm();
-        if(err<){//accept step
+        if(err<=tol){//accept step
             x+=h; y=yh;
             xlist.append(x);
-            ylist.append(y);
+            ylist.append(y[0]);
             }
-        if(err>0) h*=0.95*std::pow(tol/err,0.25); //readjust step size
+        if(err>0) h*=std::min(0.95*std::pow(tol/err,0.25), 2.); //readjust step size
         else h*=2;
     }while(true);
 }//driver
 
 
-
 int main(){
 // Some main function
+    pp::vector yinit(2); yinit[0] = 1; yinit[1] = 3;
+    auto f = [](double x, const pp::vector& y) -> pp::vector {
+        pp::vector dy(1);
+        double rate = 0.5;  // Growth rate (positive for growth, negative for decay)
+        dy[0] = rate * y[0];
+        return dy;
+    };
     
+    driver_result result = driver(f, {0, 10}, yinit);
+    pp::vector::write(result.xlist, "xlist.txt");
+    pp::vector::write(result.ylist, "ylist.txt");
 
     return 0;
 }

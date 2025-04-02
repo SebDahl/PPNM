@@ -1,13 +1,13 @@
 set terminal svg enhanced size 800,600
 set output "part_a_int.svg"
-set title "Interpolation"
+set title "Solved ODE"
 set xlabel "x"
 set ylabel "y"
 set grid
 
-plot "<paste x_interpolated.txt y_interpolated.txt" using 1:2 with lines linewidth 2 lc rgb "purple" title "Interpolation" , \
-    "<paste x_integrated.txt y_integrated.txt" using 1:2 with lines dashtype 2 linewidth 2 lc rgb "blue" title "Integrated" , \
-    "<paste x_i.txt y_i.txt" using 1:2 with points pt 7 ps 1.5 lc rgb "red" title "Data"
+plot "<paste xlist.txt ylist.txt" using 1:2 with lines linewidth 2 lc rgb "purple" title "Integrated function" , \
+#    "<paste x_integrated.txt y_integrated.txt" using 1:2 with lines dashtype 2 linewidth 2 lc rgb "blue" title "Integrated" , \
+#    "<paste x_i.txt y_i.txt" using 1:2 with points pt 7 ps 1.5 lc rgb "red" title "Data"
 
 
 

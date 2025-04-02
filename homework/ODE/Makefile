@@ -26,7 +26,7 @@ EVD.o: EVD.cpp EVD.h matrix.h
 matrix.o: matrix.cpp matrix.h
 	$(CXX) $(CXXFLAGS) -c matrix.cpp -o matrix.o
 
-part_a_int.svg: main.exe x_interpolated.txt y_interpolated.txt x_integrated.txt y_integrated.txt x_i.txt y_i.txt part_a_int.gpi
+part_a_int.svg: main.exe xlist.txt ylist.txt part_a_int.gpi
 	gnuplot part_a_int.gpi
 
 

@@ -28,6 +28,7 @@ struct vector {
 	void append(const double a);
 	void append(const vector& a);
 	double norm() const;
+	vector copy() const;
 
 	static void write(const vector& v, const std::string& filename);
 	static vector loadtxt(const std::string& filename);

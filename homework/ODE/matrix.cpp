@@ -198,6 +198,12 @@ double vector::norm() const {
 	return std::sqrt(sum);
 }
 
+vector vector::copy() const {
+	vector result; result.resize(size());
+	FOR_V(i,result) result.data[i] = data[i];
+	return result;
+}
+
 
 
 
