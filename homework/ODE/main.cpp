@@ -67,14 +67,34 @@ driver_result driver(
 int main(){
 // Some main function
     pp::vector yinit(2); yinit[0] = 1; yinit[1] = 3;
-    auto f = [](double x, const pp::vector& y) -> pp::vector {
-        pp::vector dy(1);
-        double rate = 0.5;  // Growth rate (positive for growth, negative for decay)
-        dy[0] = rate * y[0];
-        return dy;
-    };
+    // auto f = [](double x, const pp::vector& y) -> pp::vector {
+    //     pp::vector dy(1);
+    //     double rate = 0.5;  // Growth rate (positive for growth, negative for decay)
+    //     dy[0] = rate * y[0];
+    //     return dy;
+    // };
     
-    driver_result result = driver(f, {0, 10}, yinit);
+    // auto f = [](double x, const pp::vector& y) -> pp::vector {
+    //     pp::vector dy(2);
+    //     dy[0] = y[1];
+    //     dy[1] = -y[0];
+    //     return dy;
+    // };
+
+    std::pair<double, double> interval = {0.0, 10.0}; // From phi=0 to phi=10
+
+    // Initial conditions: u(0) = u0, u'(0) = v0
+    double u0 = 0.0; // Initial value of u
+    double v0 = 0.0; // Initial value of u'
+    pp::vector initial_conditions = pp::vector(2);
+    initial_conditions[0] = u0;
+    initial_conditions[1] = v0;
+    
+    // Call the solver
+    driver_result result = driver(f, interval, initial_conditions);
+
+
+    // driver_result result = driver(f, {0, 10}, yinit);
     pp::vector::write(result.xlist, "xlist.txt");
     pp::vector::write(result.ylist, "ylist.txt");
 
