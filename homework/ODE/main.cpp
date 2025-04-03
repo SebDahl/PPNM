@@ -63,6 +63,22 @@ driver_result driver(
     }while(true);
 }//driver
 
+pp::vector f(double phi, const pp::vector& y) {
+    // Parameter epsilon
+    double epsilon = 0.01; // Set your epsilon value here
+    
+    // Extract components
+    double y1 = y[0]; // u(phi)
+    double y2 = y[1]; // u'(phi)
+    
+    // Create return vector with derivatives
+    pp::vector derivatives = pp::vector(2);
+    derivatives[0] = y2;                    // y1' = y2
+    derivatives[1] = 1 + epsilon*y1*y1 - y1;  // y2' = 1 + epsilon*y1^2 - y1
+    
+    return derivatives;
+}
+
 
 int main(){
 // Some main function
@@ -81,14 +97,16 @@ int main(){
     //     return dy;
     // };
 
-    std::pair<double, double> interval = {0.0, 10.0}; // From phi=0 to phi=10
+    std::pair<double, double> interval = {0.0, 20.0}; // From phi=0 to phi=10
 
     // Initial conditions: u(0) = u0, u'(0) = v0
-    double u0 = 0.0; // Initial value of u
-    double v0 = 0.0; // Initial value of u'
+    double u0 = 1.0; // Initial value of u
+    double v0 = -0.5; // Initial value of u'
     pp::vector initial_conditions = pp::vector(2);
     initial_conditions[0] = u0;
     initial_conditions[1] = v0;
+
+
     
     // Call the solver
     driver_result result = driver(f, interval, initial_conditions);

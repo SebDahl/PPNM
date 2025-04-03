@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS += -std=c++23 -O2 # -Wall
 
-TARGETS = Out.txt part_a_int.svg
+TARGETS = Out.txt part_b.svg part_b_orbit.svg
 EXE = main.exe
 
 all: $(TARGETS)
@@ -26,8 +26,8 @@ EVD.o: EVD.cpp EVD.h matrix.h
 matrix.o: matrix.cpp matrix.h
 	$(CXX) $(CXXFLAGS) -c matrix.cpp -o matrix.o
 
-part_a_int.svg: main.exe xlist.txt ylist.txt part_a_int.gpi
-	gnuplot part_a_int.gpi
+part_b.svg part_b_orbit.svg: main.exe xlist.txt ylist.txt part_b.gpi
+	gnuplot part_b.gpi
 
 
 clean:
