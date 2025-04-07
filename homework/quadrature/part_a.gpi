@@ -1,0 +1,27 @@
+set terminal svg enhanced size 800,600
+set output "part_a.svg"
+set title "Error function for z=[-3,3]"
+set xlabel "z"
+set ylabel "{erf(z)}"
+set grid
+
+plot "<paste z_list.txt erf_list.txt" using 1:2 with lines linewidth 2 lc rgb "purple" title "ERF" , \
+#    "<paste x_integrated.txt y_integrated.txt" using 1:2 with lines dashtype 2 linewidth 2 lc rgb "blue" title "Integrated" , \
+#    "<paste x_i.txt y_i.txt" using 1:2 with points pt 7 ps 1.5 lc rgb "red" title "Data"
+
+
+
+
+# set terminal svg enhanced size 800,600
+# set output "part_b_orbit.svg"
+# set title "Solved ODE. {/Symbol f} = 0.01, u=1.0, u'=-0.5"
+# set xlabel "x"
+# set ylabel "y"
+# set grid
+# 
+# plot "<paste xlist.txt ylist.txt" using (1/$2)*cos($1):(1/$2)*sin($1) with lines linewidth 2 lc rgb "purple" title "Integrated function"
+
+
+
+
+
