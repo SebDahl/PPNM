@@ -1,0 +1,29 @@
+set terminal svg enhanced size 800,600
+set output "part_a.svg"
+set title "Error function for z=[-3,3]"
+set xlabel "z"
+set ylabel "{erf(z)}"
+set grid
+
+plot "<paste z_list.txt erf_list.txt" using 1:2 with lines linewidth 2 lc rgb "purple" title "ERF" , \
+#    "<paste x_integrated.txt y_integrated.txt" using 1:2 with lines dashtype 2 linewidth 2 lc rgb "blue" title "Integrated" , \
+#    "<paste x_i.txt y_i.txt" using 1:2 with points pt 7 ps 1.5 lc rgb "red" title "Data"
+
+
+
+
+set terminal svg enhanced size 800,600
+set output "part_a_acc.svg"
+set title "difference in erf(1) with log log"
+set xlabel "acc"
+set ylabel "absolute difference"
+set logscale x
+set logscale y
+set grid
+
+plot "<paste accs.txt acc_erf.txt" using 1:(abs($2-0.84270079294971486934)) with lines linewidth 2 lc rgb "purple" title "difference"
+
+
+
+
+
