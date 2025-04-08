@@ -12,14 +12,16 @@ plot "<paste z_list.txt erf_list.txt" using 1:2 with lines linewidth 2 lc rgb "p
 
 
 
-# set terminal svg enhanced size 800,600
-# set output "part_b_orbit.svg"
-# set title "Solved ODE. {/Symbol f} = 0.01, u=1.0, u'=-0.5"
-# set xlabel "x"
-# set ylabel "y"
-# set grid
-# 
-# plot "<paste xlist.txt ylist.txt" using (1/$2)*cos($1):(1/$2)*sin($1) with lines linewidth 2 lc rgb "purple" title "Integrated function"
+set terminal svg enhanced size 800,600
+set output "part_a_acc.svg"
+set title "difference in erf(1) with log log"
+set xlabel "acc"
+set ylabel "absolute difference"
+set logscale x
+set logscale y
+set grid
+
+plot "<paste accs.txt acc_erf.txt" using 1:(abs($2-0.84270079294971486934)) with lines linewidth 2 lc rgb "purple" title "difference"
 
 
 

@@ -1,7 +1,7 @@
 CXX = g++
 CXXFLAGS += -std=c++23 -O2 # -Wall
 
-TARGETS = Out.txt part_a.svg part_b_orbit.svg
+TARGETS = Out.txt part_a.svg part_a_acc.svg
 EXE = main.exe
 
 all: $(TARGETS)
@@ -30,7 +30,7 @@ matrix.o: matrix.cpp matrix.h
 sfuns.o: sfuns.cpp sfuns.h
 	$(CXX) $(CXXFLAGS) -c sfuns.cpp -o sfuns.o
 
-part_a.svg: main.exe z_list.txt erf_list.txt part_a.gpi
+part_a.svg part_a_acc.svg: main.exe z_list.txt erf_list.txt accs.txt acc_erf.txt part_a.gpi
 	gnuplot part_a.gpi
 
 
