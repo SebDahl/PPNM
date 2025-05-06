@@ -204,6 +204,47 @@ vector vector::copy() const {
 	return result;
 }
 
+double vector::mean() const {
+	double sum = 0;
+	FOR_V(i,SELF) sum += SELF[i];
+	return sum / size();
+}
+double vector::std() const {
+	double mean_value = mean();
+	double sum = 0;
+	FOR_V(i,SELF) sum += (SELF[i] - mean_value) * (SELF[i] - mean_value);
+	return std::sqrt(sum / size());
+}
+double vector::var() const {
+	double mean_value = mean();
+	double sum = 0;
+	FOR_V(i,SELF) sum += (SELF[i] - mean_value) * (SELF[i] - mean_value);
+	return sum / size();
+}
+
+int vector::argmax() const {
+	int max_index = 0;
+	NUMBER max_value = data[0];
+	for (int i = 1; i < size(); i++) {
+		if (data[i] > max_value) {
+			max_value = data[i];
+			max_index = i;
+		}
+	}
+	return max_index;
+}
+int vector::argmin() const {
+	int min_index = 0;
+	NUMBER min_value = data[0];
+	for (int i = 1; i < size(); i++) {
+		if (data[i] < min_value) {
+			min_value = data[i];
+			min_index = i;
+		}
+	}
+	return min_index;
+}
+
 
 
 

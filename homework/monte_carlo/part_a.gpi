@@ -4,11 +4,17 @@ set title "Error function for z=[-3,3]"
 set xlabel "z"
 set ylabel "{erf(z)}"
 set logscale x
+f(N) = A / sqrt(N)
+A = 1000
+fit f(x) "<paste N_s.txt result_list.txt" using 1:(abs($2 - 2929.69)) via A
+
 
 set grid
 
-plot "<paste N_s.txt result_list.txt" using 1:(abs($2-2929.69)) with lines linewidth 2 lc rgb "purple" title "Actual difference" ,  \
-    "<paste N_s.txt deviation_list.txt" using 1:2 with lines dashtype 2 linewidth 2 lc rgb "blue" title "Calculated deviation"
+plot "<paste N_s.txt result_list.txt" using 1:(abs($2 - 2929.69)) with lines linewidth 2 lc rgb "purple" title "Actual difference", \
+     "<paste N_s.txt deviation_list.txt" using 1:2 with lines dashtype 2 linewidth 2 lc rgb "blue" title "Calculated deviation", \
+     f(x) with lines linewidth 2 lc rgb "red" title "Fit: A/sqrt(N)"
+
 
 #    "<paste x_integrated.txt y_integrated.txt" using 1:2 with lines dashtype 2 linewidth 2 lc rgb "blue" title "Integrated" , \
 #    "<paste x_i.txt y_i.txt" using 1:2 with points pt 7 ps 1.5 lc rgb "red" title "Data"

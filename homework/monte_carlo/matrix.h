@@ -31,6 +31,11 @@ struct vector {
 	vector copy() const;
 	vector(std::initializer_list<NUMBER> init) : data(init) {}
 	vector(const std::vector<NUMBER>& init) : data(init) {}
+	double mean() const;
+	double std() const;
+	int argmax() const;
+	int argmin() const;
+	double var() const;
 
 	static void write(const vector& v, const std::string& filename);
 	static vector loadtxt(const std::string& filename);
