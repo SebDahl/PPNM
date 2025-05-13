@@ -43,7 +43,7 @@ struct vector {
 
 	static void write(const vector& v, const std::string& filename);
 	static vector loadtxt(const std::string& filename);
-	bool has_value()
+	// bool has_value();
 };
 
 vector operator+(const vector&, const vector&);
