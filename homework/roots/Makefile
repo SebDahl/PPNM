@@ -11,7 +11,7 @@ Out.txt: $(EXE)
 	./$(EXE)
 
 # Compile main.exe
-$(EXE): main.cpp QR.o matrix.o EVD.o sfuns.o
+$(EXE): main.cpp QR.o matrix.o EVD.o sfuns.o ode.o
 	$(CXX) $(CXXFLAGS) main.cpp QR.o matrix.o EVD.o -o $(EXE)
 
 # Compile QR.o
@@ -25,6 +25,10 @@ EVD.o: EVD.cpp EVD.h matrix.h
 # Compile matrix.o
 matrix.o: matrix.cpp matrix.h
 	$(CXX) $(CXXFLAGS) -c matrix.cpp -o matrix.o
+
+# Compile ode.o
+ode.o: ode.cpp ode.h matrix.h
+	$(CXX) $(CXXFLAGS) -c ode.cpp -o ode.o
 
 # Compile sfuns.o
 sfuns.o: sfuns.cpp sfuns.h
