@@ -1,8 +1,7 @@
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -std=c++23 -ffast-math
-LDFLAGS =
-LDLIBS = -lm
+CXXFLAGS = -std=c++23
+
 
 # Automatically find all .cpp files
 SRCS := $(wildcard *.cpp)

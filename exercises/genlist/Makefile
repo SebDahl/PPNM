@@ -12,7 +12,11 @@ OBJS := $(SRCS:.cpp=.o)
 TARGET = genlist  # Change this if you want a different name
 
 # Default target
-all: $(TARGET) Out.txt  # Added Out.txt as a dependency to 'all'
+all: $(TARGET)
+	@echo ""
+	@echo "Build complete. To run the program:"
+	@echo "  ./genlist < inputfile > Out.txt" (Out.txt optional)
+	@echo ""
 
 # Linking step (uses g++)
 $(TARGET): $(OBJS)
@@ -34,3 +38,6 @@ clean:
 # Test which compiler is used
 test:
 	@echo $(CXX)
+
+
+
