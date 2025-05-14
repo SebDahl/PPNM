@@ -1,0 +1,34 @@
+Checking sqrt(-1) = ±i
+Expected: (0,1)
+Computed: (0,1)
+a and b are approximately equal.
+
+Checking sqrt(i) = e^(½ln(i)) = e^(iπ/4) = cos(π/4) + i sin(π/4)
+Expected: (0.5,0.5)
+Computed: (0.707107,0.707107)
+a and b are NOT approximately equal.
+
+Checking e^i = cos(1) + i sin(1)
+Expected: (0.540302,0.841471)
+Computed: (0.540302,0.841471)
+a and b are approximately equal.
+
+Checking e^{iπ} = -1 (Euler's identity)
+Expected: (-1,0)
+Computed: (-1,1.22465e-16)
+a and b are approximately equal.
+
+Checking i^i = e^{i ln(i)} = e^{-π/2} ≈ 0.207879...
+Expected: (0.20788,0)
+Computed: (0.20788,0)
+a and b are approximately equal.
+
+Expected: (0,1.5708)
+Computed: (0,1.5708)
+a and b are approximately equal.
+
+Checking sin(iπ) = i sinh(π)
+Expected: (0,11.5487)
+Computed: (0,11.5487)
+a and b are approximately equal.
+

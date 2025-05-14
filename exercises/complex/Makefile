@@ -7,30 +7,31 @@ LDLIBS = -lm
 # Automatically find all .cpp files
 SRCS := $(wildcard *.cpp)
 OBJS := $(SRCS:.cpp=.o)
+EXE = complex  # Use this instead of 'complex.exe'
 
 # Target executable
-TARGET = complex  # Change this if you want a different name
+TARGET = complex
 
 # Default target
-all: $(TARGET) Out.txt  # Added Out.txt as a dependency to 'all'
+all: $(TARGET) Out.txt
 
-# Linking step (uses g++)
+# Linking step
 $(TARGET): $(OBJS)
 	$(CXX) $(LDFLAGS) $^ -o $@ $(LDLIBS)
 
-# Compilation step for each .cpp file
+# Compilation step
 %.o: %.cpp
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c -o $@ $<
 
-# Create Out.txt by running the executable
-# Out.txt: $(TARGET)  # Out.txt depends on the executable
-# 	./$(TARGET) > Out.txt  # Run the executable and redirect output to Out.txt
+# Generate Out.txt
+Out.txt: $(EXE)
+	./$(EXE) | tee Out.txt
 
 # Cleanup
 .PHONY: clean
 clean:
 	$(RM) $(OBJS) $(TARGET) Out.txt
 
-# Test which compiler is used
+# Test compiler
 test:
 	@echo $(CXX)
