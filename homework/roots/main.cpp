@@ -130,7 +130,7 @@ pp::vector Mfunc (pp::vector E) {
     pp::vector init({rmin-rmin*rmin, 1-2*rmin}); // Initial conditions, schrodeq(rmin)
     auto [rs, fs] = ode::driver(schrodeq, rinterval, init, rstep, acc, eps); //
 
-    return pp::vector({fs.back()[0]}); // Return the last value of f(r), i.e. f(rmax)
+    return pp::vector{rs[rs.size()-1], fs[fs.size()-1]}; // Return the last r and f(r)
 };
 
 
