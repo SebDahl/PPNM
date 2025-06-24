@@ -1,0 +1,15 @@
+set terminal svg size 800,600
+set output "ann_analysis.svg"
+
+set title "ANN Function Fit and Derivatives"
+set xlabel "x"
+set ylabel "y"
+set grid
+set key outside
+
+plot \
+    "values.txt" using 1:2 with lines lw 2 lc rgb "black" title "Target g(x)", \
+    "values.txt" using 1:3 with lines dashtype (6,4) lw 2 lc rgb "blue" title "ANN Approximation", \
+    "values.txt" using 1:4 with lines lw 1 lc rgb "green" title "ANN Derivative", \
+    "values.txt" using 1:5 with lines lw 1 lc rgb "red" title "ANN Second Derivative", \
+    "values.txt" using 1:6 with lines lw 1 lc rgb "purple" title "ANN Anti-derivative"

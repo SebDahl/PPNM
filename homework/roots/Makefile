@@ -12,7 +12,7 @@ Out.txt: $(EXE)
 
 # Compile main.exe
 $(EXE): main.cpp QR.o matrix.o EVD.o sfuns.o ode.o
-	$(CXX) $(CXXFLAGS) main.cpp QR.o matrix.o EVD.o -o $(EXE)
+	$(CXX) $(CXXFLAGS) main.cpp QR.o matrix.o EVD.o ode.o -o $(EXE)
 
 # Compile QR.o
 QR.o: QR.cpp QR.h matrix.h
@@ -34,7 +34,7 @@ ode.o: ode.cpp ode.h matrix.h
 sfuns.o: sfuns.cpp sfuns.h
 	$(CXX) $(CXXFLAGS) -c sfuns.cpp -o sfuns.o
 
-part_a.svg : main.exe result_list.txt deviation_list.txt N_s.txt part_a.gpi
+part_a.svg : main.exe wavefunction_baseline.txt part_a.gpi
 	gnuplot part_a.gpi
 
 

@@ -289,8 +289,8 @@
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<path stroke='rgb(148,   0, 211)'  d='M715.48,72.01 L758.04,72.01 M64.14,245.86 L99.67,223.42 L135.21,200.99 L170.74,178.55 L206.28,156.11 L241.81,137.60
-		L277.34,125.59 L312.88,122.63 L348.41,131.31 L383.95,154.19 L419.48,193.83 L455.01,245.06 L490.55,303.26 L526.08,362.36
-		L561.62,415.45 L597.15,455.52 L632.68,476.28 L668.22,473.03 L703.75,443.25 L739.29,413.48  '/></g>
+		L277.34,125.59 L312.88,122.63 L348.41,131.31 L383.95,154.19 L419.48,193.83 L455.01,245.06 L490.55,303.10 L526.08,361.60
+		L561.62,414.21 L597.15,454.55 L632.68,476.28 L668.22,473.03 L703.75,443.25 L739.29,413.48  '/></g>
 	</g>
 	<g id="gnuplot_plot_2" ><title>Recovered + uncertainty</title>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -299,13 +299,16 @@
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
-	<path stroke='rgb(255,   0,   0)'  d='M715.48,90.01 L758.04,90.01 M715.48,85.51 L715.48,94.51 M758.04,85.51 L758.04,94.51 M64.14,301.98 L64.14,189.73
-		M64.14,301.98 L68.64,301.98 M64.14,189.73 L68.64,189.73 M99.67,257.58 L99.67,189.27 M95.17,257.58 L104.17,257.58
-		M95.17,189.27 L104.17,189.27 M135.21,216.26 L135.21,185.71 M130.71,216.26 L139.71,216.26 M130.71,185.71 L139.71,185.71
-		M241.81,148.14 L241.81,127.06 M237.31,148.14 L246.31,148.14 M237.31,127.06 L246.31,127.06 M277.34,141.50 L277.34,109.67
-		M272.84,141.50 L281.84,141.50 M272.84,109.67 L281.84,109.67 M312.88,138.55 L312.88,106.72 M308.38,138.55 L317.38,138.55
-		M308.38,106.72 L317.38,106.72 M348.41,141.85 L348.41,120.77 M343.91,141.85 L352.91,141.85 M343.91,120.77 L352.91,120.77
-		M739.29,424.28 L739.29,402.68 M734.79,424.28 L743.79,424.28 M734.79,402.68 L743.79,402.68  '/></g>
+	<path stroke='rgb(255,   0,   0)'  d='M715.48,90.01 L758.04,90.01 M715.48,85.51 L715.48,94.51 M758.04,85.51 L758.04,94.51 M64.14,314.57 L64.14,177.15
+		M64.14,314.57 L68.64,314.57 M64.14,177.15 L68.64,177.15 M99.67,265.24 L99.67,181.61 M95.17,265.24 L104.17,265.24
+		M95.17,181.61 L104.17,181.61 M135.21,219.69 L135.21,182.28 M130.71,219.69 L139.71,219.69 M130.71,182.28 L139.71,182.28
+		M241.81,150.51 L241.81,124.70 M237.31,150.51 L246.31,150.51 M237.31,124.70 L246.31,124.70 M277.34,145.07 L277.34,106.10
+		M272.84,145.07 L281.84,145.07 M272.84,106.10 L281.84,106.10 M312.88,142.12 L312.88,103.15 M308.38,142.12 L317.38,142.12
+		M308.38,103.15 L317.38,103.15 M348.41,144.22 L348.41,118.41 M343.91,144.22 L352.91,144.22 M343.91,118.41 L352.91,118.41
+		M490.55,316.00 L490.55,290.19 M486.05,316.00 L495.05,316.00 M486.05,290.19 L495.05,290.19 M526.08,381.09 L526.08,342.12
+		M521.58,381.09 L530.58,381.09 M521.58,342.12 L530.58,342.12 M561.62,433.70 L561.62,394.72 M557.12,433.70 L566.12,433.70
+		M557.12,394.72 L566.12,394.72 M597.15,467.46 L597.15,441.65 M592.65,467.46 L601.65,467.46 M592.65,441.65 L601.65,441.65
+		M739.29,426.70 L739.29,400.25 M734.79,426.70 L743.79,426.70 M734.79,400.25 L743.79,400.25  '/></g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<use xlink:href='#gpPt6' transform='translate(64.14,245.86) scale(4.50)' color='white'/>
 </g>
@@ -335,6 +338,22 @@
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<use xlink:href='#gpPt5' transform='translate(348.41,131.31) scale(4.50)' color='rgb(255,   0,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(490.55,303.10) scale(4.50)' color='white'/>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<use xlink:href='#gpPt5' transform='translate(490.55,303.10) scale(4.50)' color='rgb(255,   0,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(526.08,361.60) scale(4.50)' color='white'/>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<use xlink:href='#gpPt5' transform='translate(526.08,361.60) scale(4.50)' color='rgb(255,   0,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(561.62,414.21) scale(4.50)' color='white'/>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<use xlink:href='#gpPt5' transform='translate(561.62,414.21) scale(4.50)' color='rgb(255,   0,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(597.15,454.55) scale(4.50)' color='white'/>
+</g>
+<g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
+	<use xlink:href='#gpPt5' transform='translate(597.15,454.55) scale(4.50)' color='rgb(255,   0,   0)'/>
 	<use xlink:href='#gpPt6' transform='translate(739.29,413.48) scale(4.50)' color='white'/>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
@@ -364,10 +383,10 @@
 	<use xlink:href='#gpPt6' transform='translate(383.95,154.19) scale(6.75)' color='rgb(255,   0,   0)'/>
 	<use xlink:href='#gpPt6' transform='translate(419.48,193.83) scale(6.75)' color='rgb(255,   0,   0)'/>
 	<use xlink:href='#gpPt6' transform='translate(455.01,245.06) scale(6.75)' color='rgb(255,   0,   0)'/>
-	<use xlink:href='#gpPt6' transform='translate(490.55,303.26) scale(6.75)' color='rgb(255,   0,   0)'/>
-	<use xlink:href='#gpPt6' transform='translate(526.08,362.36) scale(6.75)' color='rgb(255,   0,   0)'/>
-	<use xlink:href='#gpPt6' transform='translate(561.62,415.45) scale(6.75)' color='rgb(255,   0,   0)'/>
-	<use xlink:href='#gpPt6' transform='translate(597.15,455.52) scale(6.75)' color='rgb(255,   0,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(490.55,216.81) scale(6.75)' color='rgb(255,   0,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(526.08,216.81) scale(6.75)' color='rgb(255,   0,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(561.62,216.81) scale(6.75)' color='rgb(255,   0,   0)'/>
+	<use xlink:href='#gpPt6' transform='translate(597.15,216.81) scale(6.75)' color='rgb(255,   0,   0)'/>
 	<use xlink:href='#gpPt6' transform='translate(632.68,476.28) scale(6.75)' color='rgb(255,   0,   0)'/>
 	<use xlink:href='#gpPt6' transform='translate(668.22,473.03) scale(6.75)' color='rgb(255,   0,   0)'/>
 	<use xlink:href='#gpPt6' transform='translate(703.75,443.25) scale(6.75)' color='rgb(255,   0,   0)'/>
@@ -413,19 +432,19 @@
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<path stroke='black'  d='M64.14,54.01 L64.14,542.40 L774.82,542.40 L774.82,54.01 L64.14,54.01 Z  '/>	<g transform="translate(19.18,298.21) rotate(270.00)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="middle">
-		<text><tspan font-family="Arial" >erf(z)</tspan></text>
+		<text><tspan font-family="Arial" >x</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(419.48,591.30)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="middle">
-		<text><tspan font-family="Arial" >z</tspan></text>
+		<text><tspan font-family="Arial" >y</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">
 	<g transform="translate(419.48,30.91)" stroke="none" fill="black" font-family="Arial" font-size="12.00"  text-anchor="middle">
-		<text><tspan font-family="Arial" >Error function for z=[-3,3]</tspan></text>
+		<text><tspan font-family="Arial" >Recovered samples for sin(x)x</tspan></text>
 	</g>
 </g>
 <g fill="none" color="black" stroke="currentColor" stroke-width="1.00" stroke-linecap="butt" stroke-linejoin="miter">

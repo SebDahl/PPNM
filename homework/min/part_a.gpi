@@ -1,0 +1,20 @@
+set terminal svg enhanced size 800,600
+set output "part_a.svg"
+set title "Higgs resonance fit"
+set xlabel "Energy"
+set ylabel "Cross section"
+
+set grid
+
+plot 'higgs_fit.txt' using 1:2 with lines linewidth 2 lc rgb "purple" title "Fit", \
+     "higgs_data.data" using 1:2:3 with yerrorbars title "Higgs data"
+
+
+
+
+
+
+
+
+
+

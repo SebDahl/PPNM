@@ -83,6 +83,39 @@ pp::matrix D3_matrix(const pp::vector& x){
     return D;
 }
 
+pp::matrix D3_matrix_2(const pp::vector& x){
+    int n = x.size();
+    pp::matrix D(n, n);
+    D(0, 0) = 0.0; // First element is 1
+    D(0, 1) = -1.0; // Second element is -2
+    D(0, 2) = -0.5; // Third element is 3
+    
+    D(1, 0) = 1.0; // First element is 1
+    D(1, 1) = 0.0; // Second element is -2
+    D(1, 2) = -1.0; // Third element is 3
+    D(1, 3) = -0.5; // Third element is 3
+
+    D(n-1, n-1-2) = -0.5; // First element is 1
+    D(n-1, n-1-1) = 1.0; // Second element is -2
+    D(n-1, n-1) = 0; // last element
+
+    D(n-1-1, n-1-3) = -0.5; // First element is 1
+    D(n-1-1, n-1-2) = 1; // First element is 1
+    D(n-1-1, n-1-1) = 0.0; // Second element is -2
+    D(n-1-1, n-1) = -1.0; // last element
+
+    
+
+    for (int i = 2; i < n-2; i++){
+        D(i, i-2) = -0.5;
+        D(i, i-1) = 1;
+        D(i, i) = 0.0;
+        D(i, i+1) = -1.0;
+        D(i, i+2) = 0.5;
+    }
+    return D;
+}
+
 
 
 // Construct insertion matrix M for missing indices
@@ -209,6 +242,56 @@ std::pair<pp::vector, pp::vector> recover_clipped(pp::vector y, double threshold
 }
 
 
+std::pair<pp::vector, pp::vector> recover_clipped_bad_boundary(pp::vector y, double threshold) {
+    int N = y.size();
+    std::vector<int> clipped_indices = detect_clipped_indices(y, threshold);
+    int m = clipped_indices.size();
+
+
+    // Build M and D
+    pp::matrix M = M_matrix(N, clipped_indices);
+    pp::matrix D = D3_matrix_2(N);
+
+    // Compute DM and Dy
+    pp::matrix DM = D * M;
+    pp::vector Dy = D * y;
+
+    // Solve DM z = -Dy
+    pp::vector rhs = Dy * (-1.0);
+    pp::QR qr(DM);
+    pp::vector z = qr.solve(rhs);
+
+    // Recover full signal x = y + M z
+    pp::vector x = y;
+    for (int k = 0; k < m; ++k) {
+        int idx = clipped_indices[k];
+        x[idx] += z[k];
+    }
+
+        // Estimate covariance matrix of z
+    pp::matrix DTDM = DM.transpose() * DM;
+    pp::QR qr_cov(DTDM);
+    pp::matrix C_inv(m, m);
+    pp::matrix I = pp::matrix::identity(m);
+    for (int j = 0; j < m; ++j) {
+        pp::vector col = qr_cov.solve(I.get_col(j));
+        C_inv.set_col(j, col);
+    }
+
+    // Estimate residual variance sigma^2
+    pp::vector residual = DM * z + Dy;
+    double sigma2 = (residual * residual) / (DM.sizerow() - m);
+
+    // Final covariance matrix and uncertainties
+    pp::matrix Cov_z = C_inv * sigma2;
+    pp::vector sigma_z(m);
+    for (int i = 0; i < m; ++i)
+        sigma_z[i] = std::sqrt(Cov_z(i, i));
+
+    return {x, sigma_z};
+}
+
+
 int main() {
     // Create test signal with missing samples
     int N = 20;
@@ -217,7 +300,7 @@ int main() {
         y[i] = std::sin(0.3 * i)*i;
     pp::vector::write(y, "actual_signal.txt");
 
-    std::vector<int> missing = {0,1,2, 5, 6, 7, 8, 19};
+    std::vector<int> missing = {0,1,2, 5, 6, 7, 8,12,13,14,15, 19};
     for (int i : missing)
         y[i] = 0.0;  // Mark missing samples as zero
 
@@ -256,10 +339,12 @@ int main() {
 int N_2 = 100;
 pp::vector original_signal(N_2);
 pp::vector clipped_signal(N_2);
-double threshold = 0.6;
+double threshold = 1.5;
 
 for (int i = 0; i < N_2; ++i) {
-    original_signal[i] = std::cos(0.2 * i)*i;
+    // original_signal[i] = std::cos(0.2 * i)*i;
+    original_signal[i] = (2+1*std::cos(0.2*i))*std::cos(0.25*i);
+
     if (original_signal[i] > threshold)
         clipped_signal[i] = threshold;
     else if (original_signal[i] < -threshold)
@@ -286,6 +371,24 @@ for (int i = 0; i < clipped_indices.size(); ++i) {
 declip_errfile.close();
 
 std::cout << "Declipped signal written to 'declipped_signal.txt'\n";
+
+
+
+    // Simulate a clipped signal with bad boundary conditions
+    
+auto [declipped_signal_bad_boundary, sigma_z_clip_bad_boundary] = recover_clipped_bad_boundary(clipped_signal, threshold);
+
+// Save all data for plotting/inspection
+pp::vector::write(declipped_signal_bad_boundary, "declipped_signal_bad_boundary.txt");
+
+// Detect clipped indices for error bar file
+std::ofstream declip_errfile_bad("declipping_errorbars_bad_boundary.txt");
+for (int i = 0; i < clipped_indices.size(); ++i) {
+    int idx = clipped_indices[i];
+    declip_errfile_bad << idx << " " << declipped_signal_bad_boundary[idx] << " " << sigma_z_clip_bad_boundary[i] << "\n";
+}
+declip_errfile_bad.close();
+
 
 
 

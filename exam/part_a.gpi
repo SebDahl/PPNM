@@ -1,8 +1,8 @@
 set terminal svg enhanced size 800,600
-set output "part_a.svg"
-set title "Error function for z=[-3,3]"
-set xlabel "z"
-set ylabel "{erf(z)}"
+set output "Least_squares_signal_recovery.svg"
+set title "Recovered samples for sin(x)x"
+set xlabel "y"
+set ylabel "x"
 #fit f(x) "<paste N_s.txt result_list.txt" using 1:(abs($2 - 2929.69)) via A
 
 
@@ -22,18 +22,43 @@ plot 'recovered_signal.txt' with lines title "Recovered signal", \
 
 
 set terminal svg enhanced size 800,600
-set output "part_b.svg"
-set title "Least-Squares Signal Declipping"
-set xlabel "Sample index"
-set ylabel "Amplitude"
+set output "Signal_declipping.svg"
+set title "Least-Squares Signal Declipping for (2+1*cos(0.2*x))*cos(0.25*x)"
+set xlabel "x"
+set ylabel "y"
 set grid
 set key top right
 
 plot \
+  1.5 with lines lc rgb "green" title "Threshold", \
+  -1.5 with lines lc rgb "green" notitle, \
   "original_signal.txt" with lines lc rgb "black" title "Original", \
   "clipped_signal.txt" with lines lc rgb "gray" title "Clipped", \
-  "declipped_signal.txt" with lines lc rgb "blue" title "Declipped", \
   "declipping_errorbars.txt" using 1:2:3 with yerrorbars lc rgb "red" pt 7 title "Declipped + Uncertainty"
+
+
+    #"declipped_signal.txt" with lines lc rgb "blue" title "Declipped", \
+
+
+
+set terminal svg enhanced size 800,600
+set output "Declipping_Bad_boundary_third_order.svg"
+set title "Least-Squares Signal Declipping for (2+1*cos(0.2*x))*cos(0.25*x) with no boundary conditions"
+set xlabel "x"
+set ylabel "y"
+set grid
+set key top right
+
+plot \
+  1.5 with lines lc rgb "green" title "Threshold", \
+  -1.5 with lines lc rgb "green" notitle, \
+  "original_signal.txt" with lines lc rgb "black" title "Original", \
+  "clipped_signal.txt" with lines lc rgb "gray" title "Clipped", \
+  "declipping_errorbars_bad_boundary.txt" using 1:2:3 with yerrorbars lc rgb "red" pt 7 title "Declipped + Uncertainty"
+
+
+    #"declipped_signal.txt" with lines lc rgb "blue" title "Declipped", \
+
 
 
 
