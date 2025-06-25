@@ -17,3 +17,8 @@ I have added a signal declipping implementation as well, which largely works by 
 I also looked at the effects of changing the boundary conditions of the second order difference matrix, however the effects of this were barely noticeable and due to this haven't been plotted as they were rather uninteresting.
 For the signal declipping the effects of the boundary conditions were much more visible and as such have been plotted. It is seen that the values at the start and end are much worse, and that the uncertainties for all points become larger.
 
+
+The code can be run simply by entering make all which compiles and runs the code, and creates the three plots, which all end with .svg
+
+The data used for the plotting is all saved as .txt files directly in the folder, these are also removed by make clean.
+
